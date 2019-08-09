@@ -17,3 +17,28 @@ int solution(vector<int> &A)
 			return i;
 	}
 }
+
+
+//another solution
+
+#include <vector>
+#include <algorithm>
+int solution(vector<int> &A)
+{
+    if(A.empty())return 1;
+    A.erase(std::remove_if(A.begin(),A.end(),[](const int & item){return (item < 1);}),A.end());
+    if(A.empty())return 1;
+    std::sort(A.begin(),A.end());
+    auto  it = std::unique(A.begin(),A.end());
+    if(A.empty() || A.front() != 1) return 1;
+    int l_ret = 1;
+    for(auto iter = A.begin(); iter != it -1; ++iter)
+    {
+        if((*iter)+1 != (*(iter+1)))
+        {
+           return (*iter)+1;
+        }
+        l_ret++;
+    }
+    return ++l_ret;
+}
